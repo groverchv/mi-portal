@@ -1,0 +1,33 @@
+## 5. Infraestructura, DevOps y Netlify
+
+### Netlify Functions
+- Los endpoints del backend se encuentran en `/frontend/netlify/functions/`.
+- **Despliegue y Rutas (netlify.toml)**: El archivo `netlify.toml` en la raíz configura el enrutamiento. 
+  - Todo llamado a `/api/...` se redirige internamente a `/.netlify/functions/...` con un status 200.
+  - La SPA (Single Page Application) rutea todo lo que no sea función hacia `/index.html` (comportamiento de React Router).
+- **Seguridad**: El `netlify.toml` maneja estrictamente el `Content-Security-Policy` (CSP). Al agregar nuevos dominios de imágenes (ej. Cloudinary, Supabase) o fuentes, se debe actualizar la política en ese archivo.
+
+---
+
+## 6. Calidad, Testing (QA) y Auditoría
+
+La calidad es un aspecto principal del proyecto y debe validarse en la carpeta `/QA/`.
+
+- **Planes y Matrices**: Respeta las reglas dispuestas en `QA/PLAN_DE_PRUEBAS.md` y `QA/MATRIZ_CUMPLIMIENTO.md`.
+- **Ejecución de Pruebas**: Cualquier script de prueba funcional y lógico debe ejecutarse utilizando `node QA/test/run-tests.js` (u otra configuración de pruebas existente que el equipo utilice).
+- **Auditoría**: Acciones de modificación en la base de datos que correspondan a eventos sensibles deben seguir las prácticas de la feature `auditoria`, si corresponde.
+
+---
+
+## 7. Estándares de Calidad de Software (7 Pilares)
+
+Cualquier propuesta o modificación de código debe ser auditada rigurosamente bajo los siguientes estándares:
+1. **Correctitud (Correctness):** El código debe cumplir exactamente con la lógica de negocio requerida sin dejar casos límite sin manejar.
+2. **Fiabilidad (Reliability):** Implementar manejo de excepciones (`try/catch`), comprobar valores nulos/indefinidos y recuperarse grácilmente de fallos.
+3. **Seguridad (Security):** Sanitizar entradas, evitar inyecciones, no usar Base64 para almacenar multimedia y jamás exponer credenciales críticas (como `SERVICE_ROLE_KEY`) al frontend.
+4. **Portabilidad (Portability):** Todo entorno debe parametrizarse mediante variables de entorno de Vite o Netlify, evitando rutas físicas absolutas o URLs quemadas.
+5. **Mantenibilidad (Maintainability):** Aplicar SOLID, DRY (evitar duplicación) y KISS (mantenerlo simple). Nombres descriptivos y auto-explicativos.
+6. **Eficiencia (Efficiency):** Minimizar re-renders en React (uso controlado de hooks de memorización) y evitar consultas N+1 a bases de datos.
+7. **Usabilidad (Usabilidad de Código):** Mantener firmas de funciones y props de componentes limpias, intuitivas y bien documentadas.
+
+---

@@ -1,0 +1,79 @@
+.intro {
+  color: var(--text-secondary);
+  font-size: 0.975rem;
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 32px;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.link, .linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: var(--transition-smooth);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.linkButton {
+  background: none;
+  background-color: var(--bg-secondary);
+}
+
+.link:hover, .linkButton:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-secondary);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--accent-color);
+  color: var(--bg-secondary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1), fadeOut 0.3s ease-out 1.7s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

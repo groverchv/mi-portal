@@ -1,0 +1,187 @@
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--bg-secondary);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+}
+
+.card:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Browser Mockup */
+.browserMockup {
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.browserHeader {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 6px;
+  background-color: rgba(15, 23, 42, 0.03);
+}
+
+:global(.dark) .browserHeader {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot:nth-child(1) { background-color: #ef4444; } /* Red */
+.dot:nth-child(2) { background-color: #eab308; } /* Yellow */
+.dot:nth-child(3) { background-color: #22c55e; } /* Green */
+
+.browserUrl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: monospace;
+  margin-left: 12px;
+  background-color: var(--bg-secondary);
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  flex-grow: 1;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browserBody {
+  height: 180px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.iframePreview {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #ffffff;
+  pointer-events: none; /* Prevents iframe from capturing card drag/scroll gestures */
+}
+
+/* GitHub Placeholder Styling */
+.githubPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.githubIcon {
+  width: 36px;
+  height: 36px;
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+.card:hover .githubIcon {
+  transform: scale(1.1);
+}
+
+/* Card Content Area */
+.cardContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.header {
+  margin-bottom: 12px;
+}
+
+.titleLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.titleLink:hover {
+  color: var(--accent-hover);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
+.previewBtn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.previewBtn:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-secondary);
+}

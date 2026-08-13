@@ -1,0 +1,21 @@
+.section {
+  padding-top: var(--section-gap);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 60px;
+}
+
+.section:last-of-type {
+  border-bottom: none;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}

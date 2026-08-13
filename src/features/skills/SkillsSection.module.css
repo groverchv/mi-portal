@@ -1,0 +1,144 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.groupTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.775rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: var(--transition-smooth);
+  border: 1px solid transparent;
+}
+
+.badge i {
+  font-size: 1rem;
+}
+
+.badge svg {
+  flex-shrink: 0;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom badge colors - Light Mode */
+.java { background-color: #fef2f2; color: #991b1b; border-color: #fee2e2; }
+.spring { background-color: #f0fdf4; color: #166534; border-color: #dcfce7; }
+.python { background-color: #f0f9ff; color: #075985; border-color: #e0f2fe; }
+.django { background-color: #edf7f2; color: #0f5132; border-color: #d1ebd8; }
+.fastapi { background-color: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+.laravel { background-color: #fff5f5; color: #b91c1c; border-color: #fee2e2; }
+.javascript { background-color: #fefbeb; color: #92400e; border-color: #fef3c7; }
+.typescript { background-color: #eff6ff; color: #1e40af; border-color: #dbeafe; }
+.cpp { background-color: #f5f3ff; color: #5b21b6; border-color: #ede9fe; }
+.dotnet { background-color: #faf5ff; color: #6b21a8; border-color: #f3e8ff; }
+.react { background-color: #ecfeff; color: #155e75; border-color: #cffafe; }
+.vue { background-color: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+.angular { background-color: #fff5f5; color: #9b2c2c; border-color: #fed7d7; }
+.flutter { background-color: #f0f9ff; color: #0369a1; border-color: #e0f2fe; }
+
+.gemini { background-color: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+.lmstudio { background-color: #ecfeff; color: #0891b2; border-color: #cffafe; }
+.notebooklm { background-color: #eff6ff; color: #2563eb; border-color: #dbeafe; }
+.lmsys { background-color: #fff7ed; color: #ea580c; border-color: #ffedd5; }
+.elevenlabs { background-color: #f4f6f7; color: #0f172a; border-color: #e2e8f0; }
+.stitch { background-color: #fdf2f8; color: #db2777; border-color: #fce7f3; }
+.aistudio { background-color: #eff6ff; color: #2563eb; border-color: #dbeafe; }
+.yolo { background-color: #fefbeb; color: #854d0e; border-color: #fef08a; }
+.mediapipe { background-color: #ecfeff; color: #0369a1; border-color: #cffafe; }
+.llama { background-color: #faf5ff; color: #6b21a8; border-color: #f3e8ff; }
+
+.blockchain { background-color: #f8fafc; color: #334155; border-color: #e2e8f0; }
+.smartcontracts { background-color: #fefbeb; color: #b45309; border-color: #fef3c7; }
+.staruml { background-color: #fff5f5; color: #9b2c2c; border-color: #fed7d7; }
+.lucidchart { background-color: #fff7ed; color: #ea580c; border-color: #ffedd5; }
+.drawio { background-color: #fff7ed; color: #c2410c; border-color: #ffedd5; }
+.hyperledger { background-color: #f0f9ff; color: #075985; border-color: #e0f2fe; }
+.solidity { background-color: #f1f5f9; color: #334155; border-color: #cbd5e1; }
+.threejs { background-color: #fafafa; color: #171717; border-color: #e5e5e5; }
+
+.jira { background-color: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+.trello { background-color: #eff6ff; color: #0284c7; border-color: #dbeafe; }
+.mongodb { background-color: #f0fdf4; color: #166534; border-color: #dcfce7; }
+.sqlserver { background-color: #fff5f5; color: #c53030; border-color: #fed7d7; }
+.mysql { background-color: #eff6ff; color: #1d4ed8; border-color: #dbeafe; }
+.postgresql { background-color: #f0f9ff; color: #0369a1; border-color: #e0f2fe; }
+.supabase { background-color: #f0fdf4; color: #15803d; border-color: #dcfce7; }
+.sqlite { background-color: #eff6ff; color: #0369a1; border-color: #dbeafe; }
+.oci { background-color: #fff7ed; color: #c2410c; border-color: #ffedd5; }
+
+/* Custom badge colors - Dark Mode */
+:global(.dark) .java { background-color: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.25); }
+:global(.dark) .spring { background-color: rgba(34, 197, 94, 0.15); color: #86efac; border-color: rgba(34, 197, 94, 0.25); }
+:global(.dark) .python { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+:global(.dark) .django { background-color: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.25); }
+:global(.dark) .fastapi { background-color: rgba(16, 185, 129, 0.15); color: #a7f3d0; border-color: rgba(16, 185, 129, 0.25); }
+:global(.dark) .laravel { background-color: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.25); }
+:global(.dark) .javascript { background-color: rgba(234, 179, 8, 0.15); color: #fef08a; border-color: rgba(234, 179, 8, 0.25); }
+:global(.dark) .typescript { background-color: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.25); }
+:global(.dark) .cpp { background-color: rgba(139, 92, 246, 0.15); color: #c4b5fd; border-color: rgba(139, 92, 246, 0.25); }
+:global(.dark) .dotnet { background-color: rgba(168, 85, 247, 0.15); color: #d8b4fe; border-color: rgba(168, 85, 247, 0.25); }
+:global(.dark) .react { background-color: rgba(6, 182, 212, 0.15); color: #67e8f9; border-color: rgba(6, 182, 212, 0.25); }
+:global(.dark) .vue { background-color: rgba(34, 197, 94, 0.15); color: #86efac; border-color: rgba(34, 197, 94, 0.25); }
+:global(.dark) .angular { background-color: rgba(244, 63, 94, 0.15); color: #fca5a5; border-color: rgba(244, 63, 94, 0.25); }
+:global(.dark) .flutter { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+
+:global(.dark) .gemini { background-color: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.25); }
+:global(.dark) .lmstudio { background-color: rgba(6, 182, 212, 0.15); color: #67e8f9; border-color: rgba(6, 182, 212, 0.25); }
+:global(.dark) .notebooklm { background-color: rgba(37, 99, 235, 0.15); color: #bfdbfe; border-color: rgba(37, 99, 235, 0.25); }
+:global(.dark) .lmsys { background-color: rgba(249, 115, 22, 0.15); color: #ffedd5; border-color: rgba(249, 115, 22, 0.25); }
+:global(.dark) .elevenlabs { background-color: rgba(71, 85, 105, 0.15); color: #f1f5f9; border-color: rgba(71, 85, 105, 0.25); }
+:global(.dark) .stitch { background-color: rgba(219, 39, 119, 0.15); color: #fbcfe8; border-color: rgba(219, 39, 119, 0.25); }
+:global(.dark) .aistudio { background-color: rgba(37, 99, 235, 0.15); color: #93c5fd; border-color: rgba(37, 99, 235, 0.25); }
+:global(.dark) .yolo { background-color: rgba(234, 179, 8, 0.15); color: #fef08a; border-color: rgba(234, 179, 8, 0.25); }
+:global(.dark) .mediapipe { background-color: rgba(6, 182, 212, 0.15); color: #67e8f9; border-color: rgba(6, 182, 212, 0.25); }
+:global(.dark) .llama { background-color: rgba(168, 85, 247, 0.15); color: #d8b4fe; border-color: rgba(168, 85, 247, 0.25); }
+
+:global(.dark) .blockchain { background-color: rgba(71, 85, 105, 0.15); color: #f1f5f9; border-color: rgba(71, 85, 105, 0.25); }
+:global(.dark) .smartcontracts { background-color: rgba(234, 179, 8, 0.15); color: #fef08a; border-color: rgba(234, 179, 8, 0.25); }
+:global(.dark) .staruml { background-color: rgba(220, 38, 38, 0.15); color: #fca5a5; border-color: rgba(220, 38, 38, 0.25); }
+:global(.dark) .lucidchart { background-color: rgba(249, 115, 22, 0.15); color: #ffedd5; border-color: rgba(249, 115, 22, 0.25); }
+:global(.dark) .drawio { background-color: rgba(234, 88, 12, 0.15); color: #ffedd5; border-color: rgba(234, 88, 12, 0.25); }
+:global(.dark) .hyperledger { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+:global(.dark) .solidity { background-color: rgba(71, 85, 105, 0.15); color: #f1f5f9; border-color: rgba(71, 85, 105, 0.25); }
+:global(.dark) .threejs { background-color: rgba(250, 250, 250, 0.15); color: #f5f5f5; border-color: rgba(250, 250, 250, 0.25); }
+
+:global(.dark) .jira { background-color: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.25); }
+:global(.dark) .trello { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+:global(.dark) .mongodb { background-color: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.25); }
+:global(.dark) .sqlserver { background-color: rgba(239, 68, 68, 0.15); color: #fca5a5; border-color: rgba(239, 68, 68, 0.25); }
+:global(.dark) .mysql { background-color: rgba(59, 130, 246, 0.15); color: #93c5fd; border-color: rgba(59, 130, 246, 0.25); }
+:global(.dark) .postgresql { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+:global(.dark) .supabase { background-color: rgba(34, 197, 94, 0.15); color: #86efac; border-color: rgba(34, 197, 94, 0.25); }
+:global(.dark) .sqlite { background-color: rgba(14, 165, 233, 0.15); color: #7dd3fc; border-color: rgba(14, 165, 233, 0.25); }
+:global(.dark) .oci { background-color: rgba(249, 115, 22, 0.15); color: #ffedd5; border-color: rgba(249, 115, 22, 0.25); }
