@@ -42,6 +42,10 @@ export default function HeroSection() {
     <section className={styles.hero} aria-label="Introducción">
       <div className={styles.heroContent}>
         <div className={styles.textContent}>
+          <div className={styles.statusPill}>
+            <span className={styles.statusDot} />
+            <span>Disponible para nuevos desafíos profesionales</span>
+          </div>
           <h1 className={styles.name}>{name}</h1>
           <p className={styles.role}>{role}</p>
           <p className={styles.bio}>{bio}</p>

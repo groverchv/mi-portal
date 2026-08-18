@@ -1,7 +1,32 @@
+import { useState, useRef, useEffect } from 'react';
 import styles from './ProyectoCard.module.css';
 
-export default function ProyectoCard({ title, description, tags, link, previewType, onPreview }) {
+export default function ProyectoCard({ title, description, tags, link, previewType, images, onPreview }) {
   const isIframe = previewType === 'iframe';
+  const hasImages = (previewType === 'image' || previewType === 'gallery') && images && images.length > 0;
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef(null);
+
+  // Auto-slide images smoothly every 3.5 seconds (or faster on hover)
+  useEffect(() => {
+    if (!hasImages || images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % images.length);
+    }, isHovered ? 2500 : 3500);
+
+    return () => clearInterval(interval);
+  }, [hasImages, images, isHovered]);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
 
   // Custom mockup styles based on project title
   const getMockupDetails = (projTitle) => {
@@ -50,7 +75,14 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
   const mockup = getMockupDetails(title);
 
   return (
-    <article className={styles.card}>
+    <article 
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={styles.card}
+    >
+      <div className={styles.spotlight} />
       {link && (
         <div className={styles.browserMockup}>
           <div className={styles.browserHeader}>
@@ -58,7 +90,7 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
           </div>
           <div 
             className={styles.browserBody} 
-            style={!isIframe ? { background: mockup.gradient } : { backgroundColor: '#ffffff' }}
+            style={!isIframe && !hasImages ? { background: mockup.gradient } : { backgroundColor: '#0b0f19' }}
           >
             {isIframe ? (
               <iframe
@@ -68,6 +100,32 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin allow-popups"
               />
+            ) : hasImages ? (
+              <div className={styles.imagePreviewContainer}>
+                {images.map((img, idx) => (
+                  <img 
+                    key={idx}
+                    src={img} 
+                    alt={`${title} - captura ${idx + 1}`}
+                    className={`${styles.projectImage} ${currentImgIndex === idx ? styles.activeImage : styles.hiddenImage}`}
+                  />
+                ))}
+                {images.length > 1 && (
+                  <div className={styles.imageDots}>
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        className={`${styles.imgDot} ${currentImgIndex === idx ? styles.activeDot : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentImgIndex(idx);
+                        }}
+                        aria-label={`Ver imagen ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
             ) : (
               <div 
                 style={{
@@ -121,27 +179,29 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
             ))}
           </div>
           
-          {link && (
-            isIframe ? (
-              <button 
-                onClick={() => onPreview(link, title)} 
-                className={styles.previewBtn}
-                aria-label={`Ver previsualización en pantalla completa de ${title}`}
-              >
-                Ver Pantalla Completa
-              </button>
-            ) : (
-              <a 
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.previewBtn}
-                aria-label={`Visitar demo de ${title}`}
-              >
-                Ver Demo
-              </a>
-            )
-          )}
+          <div className={styles.actionButtons}>
+            {link && (
+              isIframe ? (
+                <button 
+                  onClick={() => onPreview({ type: 'iframe', link, title })} 
+                  className={styles.previewBtn}
+                  aria-label={`Ver previsualización en pantalla completa de ${title}`}
+                >
+                  Pantalla Completa
+                </button>
+              ) : (
+                <a 
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.previewBtn}
+                  aria-label={`Visitar demo de ${title}`}
+                >
+                  Ver Demo
+                </a>
+              )
+            )}
+          </div>
         </div>
       </div>
     </article>

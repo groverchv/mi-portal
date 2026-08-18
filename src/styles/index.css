@@ -4,13 +4,14 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   display: none;
 }
-
 
 section {
   scroll-margin-top: 80px;
@@ -20,6 +21,7 @@ section {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  max-width: 100%;
 }
 
 body {
@@ -30,6 +32,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: var(--transition-smooth);
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 a {
@@ -50,9 +55,20 @@ input, textarea, button {
 
 /* Base utility classes */
 .container {
+  width: 100%;
   max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .sr-only {

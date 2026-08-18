@@ -1,19 +1,52 @@
 .card {
+  position: relative;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background-color: var(--bg-secondary);
-  transition: var(--transition-smooth);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
 }
 
 .card:hover {
-  border-color: var(--text-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: rgba(15, 23, 42, 0.35);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px -6px rgba(0, 0, 0, 0.12), 0 6px 12px -3px rgba(0, 0, 0, 0.06);
+}
+
+:global(.dark) .card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 30px -6px rgba(0, 0, 0, 0.45), 0 0 20px 0 rgba(56, 189, 248, 0.08);
+}
+
+/* Subtle Cursor Spotlight Gradient (Linear/Vercel style) */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(15, 23, 42, 0.04),
+    transparent 65%
+  );
+  z-index: 1;
+}
+
+:global(.dark) .spotlight {
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.06),
+    transparent 65%
+  );
+}
+
+.card:hover .spotlight {
+  opacity: 1;
 }
 
 /* Browser Mockup */
@@ -168,6 +201,105 @@
   font-weight: 500;
 }
 
+.imagePreviewContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0b0f19;
+}
+
+.projectImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: opacity 0.6s ease-in-out, transform 0.4s ease;
+}
+
+.activeImage {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1);
+}
+
+.hiddenImage {
+  opacity: 0;
+  z-index: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.card:hover .activeImage {
+  transform: scale(1.04);
+}
+
+.imageDots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.imgDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.imgDot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.activeDot {
+  background-color: #38bdf8;
+  transform: scale(1.3);
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.galleryBtn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.galleryBtn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
 .previewBtn {
   font-size: 0.75rem;
   font-weight: 600;
@@ -184,4 +316,22 @@
 .previewBtn:hover {
   background-color: var(--accent-color);
   color: var(--bg-secondary);
+}
+
+@media (max-width: 500px) {
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .actionButtons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .galleryBtn, .previewBtn {
+    flex: 1;
+    text-align: center;
+  }
 }

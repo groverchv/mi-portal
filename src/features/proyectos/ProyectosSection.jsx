@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RESUME_DATA } from '../../constants/resumeData';
 import Section from '../../components/Section';
 import ProyectoCard from './components/ProyectoCard';
@@ -8,13 +8,37 @@ export default function ProyectosSection() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [activePreview, setActivePreview] = useState(null);
 
-  const handlePreview = (link, title) => {
-    setActivePreview({ link, title });
+  const handlePreview = (previewData) => {
+    if (typeof previewData === 'string') {
+      setActivePreview({ link: previewData, title: '' });
+    } else {
+      setActivePreview(previewData);
+    }
   };
 
   const closePreview = () => {
     setActivePreview(null);
   };
+
+  // Keyboard navigation & body scroll lock for iframe demo modal
+  useEffect(() => {
+    if (!activePreview) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closePreview();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [activePreview]);
 
   const filteredProjects = RESUME_DATA.projects.filter((proj) => {
     if (activeFilter === 'all') return true;
@@ -44,20 +68,21 @@ export default function ProyectosSection() {
 
       <div className={styles.grid}>
         {filteredProjects.map((proj) => (
-          <div key={proj.title} className="fade-in">
+          <div key={proj.title} className={`${styles.gridItem} fade-in`}>
             <ProyectoCard
               title={proj.title}
               description={proj.description}
               tags={proj.tags}
               link={proj.link}
               previewType={proj.previewType}
+              images={proj.images}
               onPreview={handlePreview}
             />
           </div>
         ))}
       </div>
 
-      {activePreview && (
+      {activePreview && activePreview.link && (
         <div className={styles.modalOverlay} onClick={closePreview}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
@@ -69,10 +94,10 @@ export default function ProyectosSection() {
                   rel="noopener noreferrer"
                   className={styles.modalLink}
                 >
-                  Abrir en pestaña nueva
+                  Abrir enlace
                 </a>
                 <button className={styles.closeBtn} onClick={closePreview} aria-label="Cerrar previsualización">
-                  X
+                  ✕
                 </button>
               </div>
             </div>

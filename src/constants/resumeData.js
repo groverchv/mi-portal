@@ -35,15 +35,17 @@ export const RESUME_DATA = {
       description: "Plataforma integral de gestión y control financiero desarrollada para la Asociación de Profesionales Financieros. Cuenta con arquitectura moderna en React e integra un Ledger Blockchain que garantiza inmutabilidad, seguridad y auditoría transparente del patrimonio y transacciones.",
       tags: ["React", "Supabase", "Hyperledger Fabric", "OCI", "Blockchain"],
       link: "https://control-financiero-v1.netlify.app/",
-      previewType: "mockup",
+      images: ["/app/control1.png", "/app/control2.png"],
+      previewType: "gallery",
       category: "blockchain"
     },
     {
       title: "Sistema de Registro de Placas (UAGRM)",
       description: "Software integral para automatizar el acceso vehicular en casetas universitarias. Utiliza modelos YOLOv9 (FastALPR) y FastPlateOCR para lectura automática de placas, detección de clase general con RF-DETR y clasificación de color mediante CLIP ONNX local sobre CPU.",
       tags: ["FastAPI", "React 18", "YOLOv9", "OCR", "ONNX", "PostgreSQL"],
-      link: "https://github.com/groverchv",
-      previewType: "mockup",
+      link: "https://placas-uagrm.netlify.app",
+      images: ["/app/placa1.png", "/app/placa2.png"],
+      previewType: "gallery",
       category: "ia"
     },
     {
@@ -51,7 +53,8 @@ export const RESUME_DATA = {
       description: "Ecosistema descentralizado (dApp) para la tokenización y autogestión de bienes raíces mediante Smart Contracts. Incorpora motores de Realidad Aumentada (AR) en 3D para la previsualización inmersiva de propiedades desde cualquier dispositivo.",
       tags: ["Web3", "Smart Contracts", "Realidad Aumentada", "Three.js", "Solidity"],
       link: "https://github.com/groverchv",
-      previewType: "mockup",
+      images: ["/app/inmobiliaria1.png", "/app/inmobiliaria 2.png"],
+      previewType: "gallery",
       category: "blockchain"
     },
     {
@@ -74,16 +77,18 @@ export const RESUME_DATA = {
       title: "CoachVirtual (Computer Vision)",
       description: "Aplicación web interactiva que emplea modelos de Machine Learning y Visión Computacional para el análisis biomecánico y corrección postural en tiempo real, promoviendo la salud ergonómica.",
       tags: ["Computer Vision", "MediaPipe", "LLaMA 3.1", "Machine Learning"],
-      link: "https://github.com/groverchv",
-      previewType: "mockup",
+      link: "https://coach-virtual.netlify.app",
+      images: ["/app/coach 1.png", "/app/coach 2.png", "/app/coach 3.png"],
+      previewType: "gallery",
       category: "ia"
     },
     {
       title: "Generador de Arquitecturas IA",
       description: "Herramienta de automatización que utiliza NLP e IA para transpilar diagramas de clases UML directamente a código fuente estructurado (Backend y Frontend), reduciendo drásticamente el Time-to-Market.",
       tags: ["IA", "NLP", "UML", "Spring Boot", "React"],
-      link: "https://github.com/groverchv",
-      previewType: "mockup",
+      link: "https://generador-full-stack.netlify.app/",
+      images: ["/app/generador 1.png"],
+      previewType: "gallery",
       category: "ia"
     }
   ],

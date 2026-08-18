@@ -1,16 +1,16 @@
 .header {
   position: sticky;
   top: 0;
-  background-color: rgba(248, 250, 252, 0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
   transition: var(--transition-smooth);
 }
 
 :global(.dark) .header {
-  background-color: rgba(9, 10, 15, 0.8);
+  background-color: rgba(9, 10, 15, 0.85);
 }
 
 .nav {
@@ -18,17 +18,29 @@
   justify-content: space-between;
   align-items: center;
   height: 64px;
+  position: relative;
+  width: 100%;
 }
 
 .logo {
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  white-space: nowrap;
+  max-width: calc(100% - 100px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
 }
 
 .navList {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
 }
 
@@ -36,6 +48,7 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
   font-weight: 500;
+  transition: var(--transition-smooth);
 }
 
 .navLink:hover {
@@ -48,11 +61,12 @@
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  color: var(--text-primary);
   transition: var(--transition-smooth);
 }
 
@@ -60,8 +74,86 @@
   background-color: var(--border-color);
 }
 
+.themeIcon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  color: var(--text-primary);
+  transition: transform 0.3s ease, color 0.2s ease;
+}
+
+.themeBtn:hover .themeIcon,
+.themeBtnMobile:hover .themeIcon {
+  transform: rotate(15deg);
+}
+
+.navActionsMobile {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.themeBtnMobile {
+  background: none;
+  border: 1px solid var(--border-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+.themeBtnMobile:hover {
+  background-color: var(--border-color);
+}
+
+.themeBtnMobile .themeIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.hamburgerBtn {
+  background: none;
+  border: 1px solid var(--border-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+}
+
+.hamburgerLine {
+  width: 20px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all 0.25s ease;
+  border-radius: 2px;
+}
+
+.openTop {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.openMid {
+  opacity: 0;
+}
+
+.openBot {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 .main {
   padding-bottom: var(--section-gap);
+  overflow-x: hidden;
 }
 
 .footer {
@@ -72,22 +164,50 @@
   color: var(--text-muted);
 }
 
-@media (max-width: 600px) {
-  .nav {
-    flex-direction: column;
-    height: auto;
-    padding: 12px 0;
-    gap: 8px;
+@media (max-width: 768px) {
+  .navActionsMobile {
+    display: flex;
   }
+
+  .desktopThemeItem {
+    display: none;
+  }
+
+  .navMenu {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.25s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .navMenuOpen {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
   .navList {
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 24px 20px;
+    gap: 16px;
+    width: 100%;
   }
+
   .navLink {
-    font-size: 0.8rem;
-  }
-  .themeBtn {
-    padding: 4px 8px;
-    font-size: 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    padding: 6px 0;
   }
 }
 
@@ -103,10 +223,10 @@
 
 .backToTop {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
+  bottom: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background-color: var(--accent-color);
   border: 1px solid var(--border-color);

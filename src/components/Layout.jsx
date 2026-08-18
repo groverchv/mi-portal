@@ -6,6 +6,7 @@ export default function Layout({ children }) {
   const [isDark, setIsDark] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Determine if it is night time in Bolivia (UTC-4)
@@ -57,43 +58,107 @@ export default function Layout({ children }) {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <div className={styles.progressBar} style={{ width: `${scrollProgress}%` }} />
         <div className={`container ${styles.nav}`}>
-          <a href="#" className={styles.logo} aria-label="Volver al inicio">
+          <a href="#" className={styles.logo} aria-label="Volver al inicio" onClick={closeMobileMenu}>
             {RESUME_DATA.personal.name}
           </a>
-          <nav>
+
+          <div className={styles.navActionsMobile}>
+            <button 
+              onClick={toggleTheme} 
+              className={styles.themeBtnMobile}
+              aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              title={isDark ? 'Modo Claro' : 'Modo Oscuro'}
+            >
+              {isDark ? (
+                <svg className={styles.themeIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2" />
+                  <path d="M12 20v2" />
+                  <path d="m4.93 4.93 1.41 1.41" />
+                  <path d="m17.66 17.66 1.41 1.41" />
+                  <path d="M2 12h2" />
+                  <path d="M20 12h2" />
+                  <path d="m6.34 17.66-1.41 1.41" />
+                  <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+              ) : (
+                <svg className={styles.themeIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+              )}
+            </button>
+            <button
+              className={styles.hamburgerBtn}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={mobileMenuOpen}
+            >
+              <span className={`${styles.hamburgerLine} ${mobileMenuOpen ? styles.openTop : ''}`} />
+              <span className={`${styles.hamburgerLine} ${mobileMenuOpen ? styles.openMid : ''}`} />
+              <span className={`${styles.hamburgerLine} ${mobileMenuOpen ? styles.openBot : ''}`} />
+            </button>
+          </div>
+
+          <nav className={`${styles.navMenu} ${mobileMenuOpen ? styles.navMenuOpen : ''}`}>
             <ul className={styles.navList}>
               <li>
-                <a href="#experiencia" className={styles.navLink}>
+                <a href="#experiencia" className={styles.navLink} onClick={closeMobileMenu}>
                   Experiencia
                 </a>
               </li>
               <li>
-                <a href="#habilidades" className={styles.navLink}>
+                <a href="#habilidades" className={styles.navLink} onClick={closeMobileMenu}>
                   Habilidades
                 </a>
               </li>
               <li>
-                <a href="#proyectos" className={styles.navLink}>
+                <a href="#proyectos" className={styles.navLink} onClick={closeMobileMenu}>
                   Proyectos
                 </a>
               </li>
               <li>
-                <a href="#contacto" className={styles.navLink}>
+                <a href="#contacto" className={styles.navLink} onClick={closeMobileMenu}>
                   Contacto
                 </a>
               </li>
-              <li>
+              <li className={styles.desktopThemeItem}>
                 <button 
                   onClick={toggleTheme} 
                   className={styles.themeBtn}
-                  aria-label="Alternar tema visual"
+                  aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
                 >
-                  {isDark ? 'Tema Claro' : 'Tema Oscuro'}
+                  {isDark ? (
+                    <>
+                      <svg className={styles.themeIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                      </svg>
+                      <span>Claro</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className={styles.themeIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                      </svg>
+                      <span>Oscuro</span>
+                    </>
+                  )}
                 </button>
               </li>
             </ul>
