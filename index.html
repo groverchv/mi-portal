@@ -3,22 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/perfil.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#090a0f" media="(prefers-color-scheme: dark)" />
     
     <!-- SEO Meta Tags -->
     <title>Desarrollador Full Stack & Sistemas</title>
-    <meta name="description" content="Portafolio profesional de Grover Choque Villca, Desarrollador Full Stack e Ingeniero de Sistemas. Especialista en Spring Boot, React, Blockchain y Visión Computacional." />
+    <meta name="description" content="Portafolio profesional de Grover Choque Villca, Desarrollador Full Stack e Ingeniero de Sistemas. Especializado en Inteligencia Artificial, LLMs, arquitecturas web modernas y soluciones digitales escalables." />
     <meta name="robots" content="index, follow" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Devicon for developer icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- Apply theme class before first paint to avoid flash of wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark;
+        if (stored === 'dark' || stored === 'light') {
+          dark = stored === 'dark';
+        } else {
+          var boliviaHour = (new Date().getUTCHours() - 4 + 24) % 24;
+          dark = (boliviaHour >= 19 || boliviaHour < 6) ||
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
   </head>
   <body>
+    <!-- Hidden static form so Netlify's post-processing registers the React-rendered contact form -->
+    <form name="contacto" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

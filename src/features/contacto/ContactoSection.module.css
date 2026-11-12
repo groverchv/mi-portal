@@ -18,6 +18,7 @@
   gap: 10px;
   font-size: 0.9rem;
   font-weight: 600;
+  min-height: 44px;
   padding: 12px 24px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -26,6 +27,7 @@
   color: var(--text-primary);
   cursor: pointer;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .linkButton {
@@ -41,12 +43,41 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+.link:active, .linkButton:active {
+  transform: scale(0.97);
+}
+
+.formTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-top: 40px;
+}
+
+@media (max-width: 480px) {
+  .links {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .link, .linkButton {
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.825rem;
+  }
+}
+
 /* Toast Notification */
 .toast {
   position: fixed;
-  bottom: 32px;
+  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background-color: var(--accent-color);
   color: var(--bg-secondary);
   padding: 12px 24px;

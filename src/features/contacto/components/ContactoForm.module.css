@@ -3,7 +3,17 @@
   flex-direction: column;
   gap: 20px;
   max-width: 500px;
+  width: 100%;
   margin-top: 24px;
+}
+
+/* Honeypot — out of sight for humans, still present for bots */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .group {
@@ -56,12 +66,17 @@
   font-weight: 600;
   cursor: pointer;
   align-self: flex-start;
+  min-height: 44px;
   transition: var(--transition-smooth);
 }
 
 .submitBtn:hover:not(:disabled) {
   background-color: var(--accent-hover);
   border-color: var(--accent-hover);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .submitBtn:disabled {

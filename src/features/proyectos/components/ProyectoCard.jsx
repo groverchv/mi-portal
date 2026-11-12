@@ -8,11 +8,14 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
 
-  // Auto-slide images smoothly every 3.5 seconds (or faster on hover)
+  // Auto-slide images smoothly every 3.5 seconds (or faster on hover).
+  // Skipped for users who prefer reduced motion; paused while tab is hidden.
   useEffect(() => {
     if (!hasImages || images.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const interval = setInterval(() => {
+      if (document.hidden) return;
       setCurrentImgIndex((prev) => (prev + 1) % images.length);
     }, isHovered ? 2500 : 3500);
 
@@ -21,6 +24,7 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
+    if (!window.matchMedia('(hover: hover)').matches) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -101,13 +105,33 @@ export default function ProyectoCard({ title, description, tags, link, previewTy
                 sandbox="allow-scripts allow-same-origin allow-popups"
               />
             ) : hasImages ? (
-              <div className={styles.imagePreviewContainer}>
+              <div
+                className={styles.imagePreviewContainer}
+                onClick={() => onPreview({ type: 'gallery', images, title, startIndex: currentImgIndex })}
+              >
+                <button
+                  className={styles.expandBtn}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onPreview({ type: 'gallery', images, title, startIndex: currentImgIndex });
+                  }}
+                  aria-label={`Ampliar capturas de ${title}`}
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    <line x1="11" y1="8" x2="11" y2="14" />
+                    <line x1="8" y1="11" x2="14" y2="11" />
+                  </svg>
+                </button>
                 {images.map((img, idx) => (
                   <img 
                     key={idx}
                     src={img} 
                     alt={`${title} - captura ${idx + 1}`}
                     className={`${styles.projectImage} ${currentImgIndex === idx ? styles.activeImage : styles.hiddenImage}`}
+                    loading="lazy"
+                    decoding="async"
                   />
                 ))}
                 {images.length > 1 && (

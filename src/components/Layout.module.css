@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 64px;
+  height: var(--header-h);
   position: relative;
   width: 100%;
 }
@@ -45,10 +45,35 @@
 }
 
 .navLink {
+  position: relative;
   font-size: 0.875rem;
   color: var(--text-secondary);
   font-weight: 500;
   transition: var(--transition-smooth);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.navLink:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .navLink:hover {
@@ -74,6 +99,10 @@
   background-color: var(--border-color);
 }
 
+.themeBtn:active {
+  transform: scale(0.97);
+}
+
 .themeIcon {
   width: 16px;
   height: 16px;
@@ -96,8 +125,8 @@
 .themeBtnMobile {
   background: none;
   border: 1px solid var(--border-color);
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -111,6 +140,10 @@
   background-color: var(--border-color);
 }
 
+.themeBtnMobile:active, .hamburgerBtn:active {
+  transform: scale(0.95);
+}
+
 .themeBtnMobile .themeIcon {
   width: 18px;
   height: 18px;
@@ -119,8 +152,8 @@
 .hamburgerBtn {
   background: none;
   border: 1px solid var(--border-color);
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -154,6 +187,7 @@
 .main {
   padding-bottom: var(--section-gap);
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .footer {
@@ -162,6 +196,29 @@
   text-align: center;
   font-size: 0.825rem;
   color: var(--text-muted);
+}
+
+.footerNav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 16px;
+}
+
+.footerLink {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.825rem;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 4px;
+  transition: var(--transition-smooth);
+}
+
+.footerLink:hover {
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
@@ -175,7 +232,7 @@
 
   .navMenu {
     position: absolute;
-    top: 64px;
+    top: var(--header-h);
     left: 0;
     width: 100%;
     background-color: var(--bg-secondary);
@@ -183,30 +240,35 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.25s ease;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+    transition: max-height 0.3s ease-in-out, opacity 0.25s ease, visibility 0s linear 0.3s;
   }
 
   .navMenuOpen {
-    max-height: 300px;
+    max-height: 340px;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transition: max-height 0.3s ease-in-out, opacity 0.25s ease, visibility 0s;
   }
 
   .navList {
     flex-direction: column;
     align-items: flex-start;
     padding: 16px 24px 20px;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
   }
 
   .navLink {
     font-size: 1rem;
     font-weight: 600;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
+    min-height: 44px;
     padding: 6px 0;
   }
 }
@@ -223,10 +285,10 @@
 
 .backToTop {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 42px;
-  height: 42px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background-color: var(--accent-color);
   border: 1px solid var(--border-color);
@@ -246,4 +308,8 @@
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
   background-color: var(--accent-hover);
+}
+
+.backToTop:active {
+  transform: scale(0.95);
 }

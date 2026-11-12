@@ -9,14 +9,16 @@ export default function ExperienciaCard({ role, company, period, description, ta
         </h3>
         <time className={styles.period}>{period}</time>
       </header>
-      <p className={styles.description}>{description}</p>
-      <div className={styles.tags} aria-label="Tecnologías usadas">
-        {tags.map((tag) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
+      {description && <p className={styles.description}>{description}</p>}
+      {tags && tags.length > 0 && (
+        <div className={styles.tags} aria-label="Tecnologías usadas">
+          {tags.map((tag) => (
+            <span key={tag} className={styles.tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </article>
   );
 }

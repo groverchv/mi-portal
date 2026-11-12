@@ -12,7 +12,7 @@ export default function useScrollReveal(options = { threshold: 0.12, rootMargin:
     const element = ref.current;
     if (!element) return;
 
-    if (!('IntersectionObserver' in window)) {
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setIsVisible(true);
       return;
     }
