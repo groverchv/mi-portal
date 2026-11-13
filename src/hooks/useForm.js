@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function useForm(initialValues, validate, onSubmit) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
@@ -18,6 +19,15 @@ export default function useForm(initialValues, validate, onSubmit) {
         ...errors,
         [name]: '',
       });
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const fieldError = validate(values)[name];
+    if (fieldError) {
+      setErrors((prev) => ({ ...prev, [name]: fieldError }));
     }
   };
 
@@ -43,10 +53,13 @@ export default function useForm(initialValues, validate, onSubmit) {
 
   return {
     values,
+    setValues,
     errors,
+    touched,
     isSubmitting,
     submitStatus,
     handleChange,
+    handleBlur,
     handleSubmit,
   };
 }

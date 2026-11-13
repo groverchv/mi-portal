@@ -15,14 +15,11 @@
 }
 
 .image {
-  max-width: 92vw;
-  max-height: 80vh;
-  max-height: 80dvh;
-  width: auto;
-  height: auto;
+  width: 92vw;
+  height: 80vh;
+  height: 80dvh;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
   animation: lbScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }

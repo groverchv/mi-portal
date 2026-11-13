@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import useForm from '../../../hooks/useForm';
 import styles from './ContactoForm.module.css';
 
 const FORM_NAME = 'contacto';
+const DRAFT_KEY = 'contacto-draft';
 
 const validate = (values) => {
   const errors = {};
@@ -50,12 +52,29 @@ export default function ContactoForm() {
 
   const {
     values,
+    setValues,
     errors,
     isSubmitting,
     submitStatus,
     handleChange,
+    handleBlur,
     handleSubmit,
   } = useForm({ name: '', email: '', message: '', 'bot-field': '' }, validate, handleFormSubmit);
+
+  // Restore a saved draft once on mount
+  useEffect(() => {
+    try {
+      const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+      if (draft) setValues((v) => ({ ...v, ...draft }));
+    } catch { /* invalid draft — ignore */ }
+  }, [setValues]);
+
+  // Persist the draft on every change; a successful submit resets values
+  // to the initial (empty) state, which clears the draft automatically.
+  useEffect(() => {
+    const { 'bot-field': _honey, ...draft } = values;
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  }, [values]);
 
   return (
     <form
@@ -92,6 +111,7 @@ export default function ContactoForm() {
           type="text"
           value={values.name}
           onChange={handleChange}
+          onBlur={handleBlur}
           className={styles.input}
           disabled={isSubmitting}
           autoComplete="name"
@@ -113,6 +133,7 @@ export default function ContactoForm() {
           type="email"
           value={values.email}
           onChange={handleChange}
+          onBlur={handleBlur}
           className={styles.input}
           disabled={isSubmitting}
           autoComplete="email"
@@ -134,6 +155,7 @@ export default function ContactoForm() {
           name="message"
           value={values.message}
           onChange={handleChange}
+          onBlur={handleBlur}
           className={styles.textarea}
           disabled={isSubmitting}
           aria-invalid={Boolean(errors.message)}

@@ -71,6 +71,7 @@ export const RESUME_DATA = {
   projects: [
     {
       title: "Hubzi — Aprendizaje Gamificado con IA",
+      status: "En producción",
       description: "Plataforma web y móvil (PWA) de aprendizaje gamificado que transforma apuntes, PDFs y audios en batallas de cartas y mapas de memoria interactivos. Integra un mentor virtual con IA basada en síntesis RAG, módulo Zen de gestión de ansiedad pre-examen y modelo de negocio SaaS freemium.",
       tags: ["PWA", "IA Generativa", "RAG", "Gamificación", "SaaS", "EdTech"],
       link: "https://hubzy.duckdns.org/",
@@ -79,6 +80,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Control Financiero (Blockchain ERP)",
+      status: "Demo en vivo",
       description: "Plataforma integral de gestión y control financiero desarrollada para la Asociación de Profesionales Financieros. Cuenta con arquitectura moderna en React e integra un Ledger Blockchain que garantiza inmutabilidad, seguridad y auditoría transparente del patrimonio y transacciones.",
       tags: ["React", "Supabase", "Hyperledger Fabric", "OCI", "Blockchain"],
       link: "https://control-financiero-v1.netlify.app/",
@@ -88,6 +90,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Sistema de Registro de Placas (UAGRM)",
+      status: "Demo en vivo",
       description: "Software integral para automatizar el acceso vehicular en casetas universitarias. Utiliza modelos YOLOv9 (FastALPR) y FastPlateOCR para lectura automática de placas, detección de clase general con RF-DETR y clasificación de color mediante CLIP ONNX local sobre CPU.",
       tags: ["FastAPI", "React 18", "YOLOv9", "OCR", "ONNX", "PostgreSQL"],
       link: "https://placas-uagrm.netlify.app",
@@ -97,6 +100,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Plataforma Inmobiliaria Web3 & AR",
+      status: "Repositorio",
       description: "Ecosistema descentralizado (dApp) para la tokenización y autogestión de bienes raíces mediante Smart Contracts. Incorpora motores de Realidad Aumentada (AR) en 3D para la previsualización inmersiva de propiedades desde cualquier dispositivo.",
       tags: ["Web3", "Smart Contracts", "Realidad Aumentada", "Three.js", "Solidity"],
       link: "https://github.com/groverchv",
@@ -106,6 +110,7 @@ export const RESUME_DATA = {
     },
     {
       title: "ERP Mueblería CRUZ",
+      status: "Repositorio",
       description: "Sistema de planificación de recursos empresariales para la automatización de flujos de producción, inventario y gestión de pedidos. Arquitectura de alto rendimiento basada en Laravel 12, Vue.js 3, Inertia.js y TypeScript.",
       tags: ["Laravel 12", "Vue.js 3", "Inertia.js", "TypeScript", "PostgreSQL"],
       link: "https://github.com/groverchv",
@@ -114,6 +119,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Planificador Académico Inteligente",
+      status: "Demo en vivo",
       description: "Sistema algorítmico basado en el Método de la Ruta Crítica (CPM) para optimizar la trayectoria de los estudiantes de la UAGRM, minimizando el tiempo de titulación mediante el cálculo dinámico de pre-requisitos.",
       tags: ["JavaScript", "Algoritmo CPM", "Optimización", "UAGRM"],
       link: "https://educacion-planificador-academico.netlify.app/",
@@ -122,6 +128,7 @@ export const RESUME_DATA = {
     },
     {
       title: "CoachVirtual (Computer Vision)",
+      status: "Demo en vivo",
       description: "Aplicación web interactiva que emplea modelos de Machine Learning y Visión Computacional para el análisis biomecánico y corrección postural en tiempo real, promoviendo la salud ergonómica.",
       tags: ["Computer Vision", "MediaPipe", "LLaMA 3.1", "Machine Learning"],
       link: "https://coach-virtual.netlify.app",
@@ -131,6 +138,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Generador de Arquitecturas IA",
+      status: "Demo en vivo",
       description: "Herramienta de automatización que utiliza NLP e IA para transpilar diagramas de clases UML directamente a código fuente estructurado (Backend y Frontend), reduciendo drásticamente el Time-to-Market.",
       tags: ["IA", "NLP", "UML", "Spring Boot", "React"],
       link: "https://generador-full-stack.netlify.app/",

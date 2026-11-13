@@ -39,7 +39,27 @@ export default function Layout({ children }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const headerRef = useRef(null);
+
+  // Scrollspy: marks the nav link of the section currently in the reading band
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const ids = ['experiencia', 'habilidades', 'proyectos', 'contacto'];
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-35% 0px -60% 0px' }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
@@ -98,6 +118,9 @@ export default function Layout({ children }) {
   }, [mobileMenuOpen]);
 
   const toggleTheme = () => {
+    const root = document.documentElement;
+    root.classList.add('theme-anim');
+    window.setTimeout(() => root.classList.remove('theme-anim'), 400);
     setIsDark((prev) => {
       const next = !prev;
       localStorage.setItem('theme', next ? 'dark' : 'light');
@@ -145,26 +168,23 @@ export default function Layout({ children }) {
 
           <nav id="nav-menu" className={`${styles.navMenu} ${mobileMenuOpen ? styles.navMenuOpen : ''}`}>
             <ul className={styles.navList}>
-              <li>
-                <a href="#experiencia" className={styles.navLink} onClick={closeMobileMenu}>
-                  Experiencia
-                </a>
-              </li>
-              <li>
-                <a href="#habilidades" className={styles.navLink} onClick={closeMobileMenu}>
-                  Habilidades
-                </a>
-              </li>
-              <li>
-                <a href="#proyectos" className={styles.navLink} onClick={closeMobileMenu}>
-                  Proyectos
-                </a>
-              </li>
-              <li>
-                <a href="#contacto" className={styles.navLink} onClick={closeMobileMenu}>
-                  Contacto
-                </a>
-              </li>
+              {[
+                ['experiencia', 'Experiencia'],
+                ['habilidades', 'Habilidades'],
+                ['proyectos', 'Proyectos'],
+                ['contacto', 'Contacto'],
+              ].map(([id, label]) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className={`${styles.navLink} ${activeSection === id ? styles.navLinkActive : ''}`}
+                    aria-current={activeSection === id ? 'true' : undefined}
+                    onClick={closeMobileMenu}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
               <li className={styles.desktopThemeItem}>
                 <button
                   onClick={toggleTheme}

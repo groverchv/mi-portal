@@ -1,3 +1,19 @@
+.timeline {
+  position: relative;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: calc(var(--progress, 0) * 100%);
+  background-color: var(--accent-color);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .subTitle {
   font-size: 0.95rem;
   font-weight: 700;

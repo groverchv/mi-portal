@@ -76,6 +76,14 @@
   transform: scaleX(1);
 }
 
+.navLinkActive {
+  color: var(--text-primary);
+}
+
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
 .navLink:hover {
   color: var(--text-primary);
 }

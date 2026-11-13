@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { RESUME_DATA } from '../../constants/resumeData';
 import Section from '../../components/Section';
 import Reveal from '../../components/Reveal';
@@ -101,6 +102,10 @@ export default function ProyectosSection() {
         ))}
       </div>
 
+      <p className={styles.srOnly} role="status" aria-live="polite">
+        Mostrando {filteredProjects.length} {filteredProjects.length === 1 ? 'proyecto' : 'proyectos'}
+      </p>
+
       <div className={styles.grid}>
         {filteredProjects.map((proj, idx) => (
           <Reveal
@@ -110,6 +115,7 @@ export default function ProyectosSection() {
           >
             <ProyectoCard
               title={proj.title}
+              status={proj.status}
               description={proj.description}
               tags={proj.tags}
               link={proj.link}
@@ -121,17 +127,18 @@ export default function ProyectosSection() {
         ))}
       </div>
 
-      {activePreview && activePreview.type === 'gallery' && activePreview.images && (
+      {activePreview && activePreview.type === 'gallery' && activePreview.images && createPortal(
         <Lightbox
           ref={modalRef}
           images={activePreview.images}
           title={activePreview.title}
           initialIndex={activePreview.startIndex || 0}
           onClose={closePreview}
-        />
+        />,
+        document.body
       )}
 
-      {activePreview && activePreview.link && (
+      {activePreview && activePreview.link && createPortal(
         <div className={styles.modalOverlay} onClick={closePreview}>
           <div
             className={styles.modalContent}
@@ -176,7 +183,8 @@ export default function ProyectosSection() {
               />
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </Section>
   );

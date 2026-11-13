@@ -24,6 +24,13 @@
   }
 }
 
+/* Pointer-follow 3D tilt — subtle, only on capable devices */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-5px) perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  }
+}
+
 /* Subtle Cursor Spotlight Gradient (Linear/Vercel style) */
 .spotlight {
   position: absolute;
@@ -116,7 +123,47 @@
 }
 
 .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.statusLive .statusDot {
+  background-color: var(--accent-color);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+
+.statusLive {
+  color: var(--text-secondary);
+  border-color: rgba(34, 197, 94, 0.35);
 }
 
 .titleLink {
@@ -314,6 +361,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
 }
 
 .previewBtn:hover {

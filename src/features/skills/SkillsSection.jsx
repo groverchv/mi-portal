@@ -1,44 +1,16 @@
 import Section from '../../components/Section';
 import Reveal from '../../components/Reveal';
+import { SKILL_ICON_PATHS } from '../../constants/skillIcons';
 import styles from './SkillsSection.module.css';
 
-const DEVICON_MAP = {
-  java: "devicon-java-plain",
-  spring: "devicon-spring-original",
-  python: "devicon-python-plain",
-  django: "devicon-django-plain",
-  fastapi: "devicon-fastapi-plain",
-  laravel: "devicon-laravel-original",
-  javascript: "devicon-javascript-plain",
-  typescript: "devicon-typescript-plain",
-  react: "devicon-react-original",
-  vue: "devicon-vuejs-plain",
-  angular: "devicon-angularjs-plain",
-  flutter: "devicon-flutter-plain",
-  hyperledger: "devicon-hyperledger-plain",
-  solidity: "devicon-solidity-plain",
-  threejs: "devicon-threejs-original",
-  oci: "devicon-oracle-original",
-  supabase: "devicon-supabase-plain",
-  postgresql: "devicon-postgresql-plain",
-  mongodb: "devicon-mongodb-plain",
-  mysql: "devicon-mysql-plain",
-  sqlserver: "devicon-microsoftsqlserver-plain",
-  jira: "devicon-jira-plain",
-  trello: "devicon-trello-plain",
-  sqlite: "devicon-sqlite-plain",
-  sveltekit: "devicon-svelte-plain",
-  html5: "devicon-html5-plain",
-  css3: "devicon-css3-plain",
-  git: "devicon-git-plain",
-  github: "devicon-github-original",
-  postman: "devicon-postman-plain"
-};
-
 function SkillIcon({ type }) {
-  const deviconClass = DEVICON_MAP[type];
-  if (deviconClass) {
-    return <i className={deviconClass} />;
+  const path = SKILL_ICON_PATHS[type];
+  if (path) {
+    return (
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+        <path d={path} />
+      </svg>
+    );
   }
 
   // Fallbacks for AI/ML/custom/etc.

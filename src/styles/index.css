@@ -1,3 +1,4 @@
+@import './fonts.css';
 @import './variables.css';
 
 html {
@@ -85,6 +86,16 @@ a, button, [role="button"], input, textarea, select, summary {
   color: var(--bg-secondary);
 }
 
+/* Smooth theme swap: .theme-anim is applied for ~400ms while toggling */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-anim,
+  .theme-anim *,
+  .theme-anim *::before,
+  .theme-anim *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  }
+}
+
 ul {
   list-style: none;
 }
@@ -151,7 +162,7 @@ input, textarea, button {
 
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Global reduced-motion guard: users who prefer less motion get instant states */
@@ -160,5 +171,51 @@ input, textarea, button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print: clean text CV — hides chrome/interactive elements, forces light palette */
+@media print {
+  html, body {
+    background: #fff !important;
+  }
+
+  body, section, article, div, span, h1, h2, h3, h4, p, li, a, time, dd, dt {
+    color: #000 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  header, footer, nav, form, button, iframe,
+  .skip-link,
+  [class*="backToTop"], [class*="toast"], [class*="progressBar"],
+  [class*="filterContainer"], [class*="actionButtons"], [class*="previewBtn"],
+  [class*="expandToggle"], [class*="expandBtn"], [class*="imageDots"],
+  [class*="browserMockup"], [class*="spotlight"], [class*="ctaRow"] {
+    display: none !important;
+  }
+
+  /* Descripciones colapsadas se imprimen completas */
+  [class*="clamped"] {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+  }
+
+  article, [class*="card"], section {
+    break-inside: avoid;
+  }
+
+  section {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #444 !important;
+    font-weight: 400;
   }
 }

@@ -4,6 +4,20 @@ import styles from './HeroSection.module.css';
 export default function HeroSection() {
   const { name, role, location, bio, socials, avatarUrl, resumeUrl } = RESUME_DATA.personal;
 
+  const handleAvatarMove = (e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.setProperty('--rx', `${(-py * 10).toFixed(2)}deg`);
+    el.style.setProperty('--ry', `${(px * 10).toFixed(2)}deg`);
+  };
+
+  const handleAvatarLeave = (e) => {
+    e.currentTarget.style.setProperty('--rx', '0deg');
+    e.currentTarget.style.setProperty('--ry', '0deg');
+  };
+
   const getSocialIcon = (name) => {
     switch (name.toLowerCase()) {
       case 'github':
@@ -48,10 +62,6 @@ export default function HeroSection() {
     <section className={styles.hero} aria-label="Introducción">
       <div className={styles.heroContent}>
         <div className={styles.textContent}>
-          <div className={styles.statusPill}>
-            <span className={styles.statusDot} />
-            <span>Disponible para nuevos desafíos profesionales</span>
-          </div>
           <h1 className={styles.name}>{name}</h1>
           <p className={styles.role}>{role}</p>
           <p className={styles.location}>
@@ -67,7 +77,7 @@ export default function HeroSection() {
             <a href="#proyectos" className={styles.ctaPrimary}>
               Ver proyectos
             </a>
-            <a href={resumeUrl} download className={styles.ctaSecondary} aria-label="Descargar CV en PDF">
+            <a href={resumeUrl} download="CV-Grover-Choque-Villca.pdf" className={styles.ctaSecondary} aria-label="Descargar CV en PDF">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
@@ -94,7 +104,11 @@ export default function HeroSection() {
           </div>
         </div>
         {avatarUrl && (
-          <div className={styles.avatarContainer}>
+          <div
+            className={styles.avatarContainer}
+            onMouseMove={handleAvatarMove}
+            onMouseLeave={handleAvatarLeave}
+          >
             <img
               src={avatarUrl}
               alt={`Foto de perfil de ${name}`}

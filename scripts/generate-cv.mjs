@@ -1,18 +1,17 @@
-// Genera public/cv.pdf a partir del contenido del CV.
+// Genera public/cv.pdf — CV en formato Harvard (monocromo, columna única, header centrado).
 // Uso: npm install pdfkit --no-save && node scripts/generate-cv.mjs
 import PDFDocument from 'pdfkit';
 import { createWriteStream } from 'node:fs';
 
-const ACCENT = '#16a34a';
-const DARK = '#0f172a';
-const MUTED = '#475569';
-const RULE = '#e2e8f0';
+const INK = '#1a1a1a';
+const MUTED = '#444444';
+const RULE = '#1a1a1a';
 
 const CV = {
   name: 'GROVER CHOQUE VILLCA',
   role: 'Desarrollador Full Stack | Estudiante de Ingeniería de Sistemas',
   contact: 'Santa Cruz, Bolivia  |  +591 78023575  |  groverchoquevillca80@gmail.com',
-  links: 'LinkedIn: linkedin.com/in/grover-choque-villca  |  GitHub: github.com/groverchv  |  Portafolio: grover-choque-villca.netlify.app',
+  links: 'linkedin.com/in/grover-choque-villca  |  github.com/groverchv  |  grover-choque-villca.netlify.app',
   profile:
     'Desarrollador Full Stack con mentalidad emprendedora e innovadora, especializado en transformar ideas de negocio y requerimientos complejos en productos digitales escalables de alto impacto. Combino visión estratégica de producto con dominio técnico en arquitecturas modernas e Inteligencia Artificial para optimizar procesos y crear soluciones disruptivas desde cero. Enfocado en la entrega continua de valor, validación rigurosa de lógica de negocio y diseño centrado en la experiencia del usuario bajo metodologías ágiles.',
   experience: [
@@ -79,68 +78,72 @@ const CV = {
   ]
 };
 
-const doc = new PDFDocument({ size: 'A4', margins: { top: 46, bottom: 46, left: 50, right: 50 } });
+const doc = new PDFDocument({ size: 'A4', margins: { top: 50, bottom: 50, left: 56, right: 56 } });
 doc.pipe(createWriteStream('public/cv.pdf'));
 
-const pageWidth = doc.page.width - doc.page.margins.left - doc.page.margins.right;
+const LEFT = doc.page.margins.left;
+const WIDTH = doc.page.width - LEFT - doc.page.margins.right;
 
 function section(title) {
-  doc.moveDown(0.9);
-  doc.font('Helvetica-Bold').fontSize(11).fillColor(ACCENT).text(title.toUpperCase());
-  doc.moveTo(doc.page.margins.left, doc.y + 2)
-    .lineTo(doc.page.margins.left + pageWidth, doc.y + 2)
-    .lineWidth(0.7).strokeColor(RULE).stroke();
-  doc.moveDown(0.5);
+  doc.moveDown(0.8);
+  doc.font('Helvetica-Bold').fontSize(11).fillColor(INK).text(title.toUpperCase());
+  doc.moveTo(LEFT, doc.y + 3).lineTo(LEFT + WIDTH, doc.y + 3).lineWidth(0.8).strokeColor(RULE).stroke();
+  doc.y += 8;
+  doc.x = LEFT;
 }
 
 function entry(role, company, period, bullets = []) {
   const y = doc.y;
-  doc.font('Helvetica-Bold').fontSize(10).fillColor(DARK).text(role, { continued: false });
+  // Fecha a la derecha en la misma línea que el rol (ancho completo => doc.x queda en LEFT)
   if (period) {
-    doc.font('Helvetica').fontSize(8.5).fillColor(MUTED)
-      .text(period, doc.page.margins.left + pageWidth - 200, y, { width: 200, align: 'right' });
+    doc.font('Helvetica').fontSize(9).fillColor(MUTED)
+      .text(period, LEFT, y, { width: WIDTH, align: 'right' });
   }
-  doc.font('Helvetica').fontSize(9).fillColor(MUTED).text(company);
+  doc.font('Helvetica-Bold').fontSize(10).fillColor(INK)
+    .text(role, LEFT, y, { width: WIDTH - 110 });
+  doc.font('Helvetica').fontSize(9).fillColor(MUTED).text(company, { width: WIDTH });
   for (const b of bullets) {
-    doc.font('Helvetica').fontSize(9).fillColor(DARK)
-      .text(`•  ${b}`, { indent: 10, lineGap: 1.5 });
+    doc.font('Helvetica').fontSize(9).fillColor(INK)
+      .text(`•  ${b}`, { width: WIDTH - 14, indent: 12, lineGap: 1.2 });
   }
-  doc.moveDown(0.55);
+  doc.moveDown(0.6);
 }
 
-// Header
-doc.font('Helvetica-Bold').fontSize(19).fillColor(DARK).text(CV.name);
-doc.font('Helvetica').fontSize(10.5).fillColor(ACCENT).text(CV.role);
-doc.moveDown(0.3);
-doc.font('Helvetica').fontSize(8.5).fillColor(MUTED).text(CV.contact);
-doc.text(CV.links);
+// ===== Header centrado (Harvard) =====
+doc.font('Helvetica-Bold').fontSize(21).fillColor(INK).text(CV.name, { align: 'center', characterSpacing: 0.5 });
+doc.moveDown(0.15);
+doc.font('Helvetica').fontSize(10.5).fillColor(MUTED).text(CV.role, { align: 'center' });
+doc.moveDown(0.35);
+doc.font('Helvetica').fontSize(8.5).fillColor(MUTED).text(CV.contact, { align: 'center' });
+doc.text(CV.links, { align: 'center' });
 
-// Perfil
+// ===== Perfil =====
 section('Perfil Profesional');
-doc.font('Helvetica').fontSize(9).fillColor(DARK).text(CV.profile, { lineGap: 2, align: 'justify' });
+doc.font('Helvetica').fontSize(9).fillColor(INK).text(CV.profile, { width: WIDTH, lineGap: 1.8, align: 'justify' });
 
-// Experiencia
+// ===== Experiencia =====
 section('Experiencia Profesional');
 for (const e of CV.experience) entry(e.role, e.company, e.period, e.bullets);
 
-// Educación
+// ===== Educación =====
 section('Educación');
 for (const e of CV.education) entry(e.role, e.company, e.period);
 
-// Competencias
+// ===== Competencias =====
 section('Competencias');
 for (const [cat, items] of CV.competencies) {
-  doc.font('Helvetica-Bold').fontSize(9).fillColor(DARK)
+  doc.font('Helvetica-Bold').fontSize(9).fillColor(INK)
     .text(`•  ${cat}: `, { continued: true })
-    .font('Helvetica').text(items);
-  doc.moveDown(0.15);
+    .font('Helvetica').text(items, { width: WIDTH });
+  doc.moveDown(0.2);
 }
 
-// Formación adicional
+// ===== Formación adicional =====
 section('Formación Adicional y Liderazgo');
 for (const item of CV.extra) {
-  doc.font('Helvetica').fontSize(9).fillColor(DARK).text(`•  ${item}`, { indent: 10 });
+  doc.font('Helvetica').fontSize(9).fillColor(INK).text(`•  ${item}`, { width: WIDTH - 14, indent: 12 });
+  doc.moveDown(0.2);
 }
 
 doc.end();
-console.log('cv.pdf generado en public/');
+console.log('cv.pdf generado en public/ (formato Harvard)');
